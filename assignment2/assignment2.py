@@ -21,13 +21,16 @@ def read_employees():
         return employees_dict
 
     except Exception as e:
-        print(f"Exception type: {type(e).__name__}")
-
-        message = str(e)
-
-        if message:
-            print(f"Exception message: {message}")
-
+        trace_back = traceback.extract_tb(e.__traceback__)
+        stack_trace = list()
+    for trace in trace_back:
+        stack_trace.append(f'File : {trace[0]} , Line : {trace[1]}, Func.Name : {trace[2]}, Message : {trace[3]}')
+    print(f"Exception type: {type(e).__name__}")
+    message = str(e)
+    if message:
+        print(f"Exception message: {message}")
+    print(f"Stack trace: {stack_trace}")
+    return {}
 
 employees = read_employees()
 print(employees)
@@ -94,44 +97,40 @@ set_that_secret("wackadoo")
 print(custom_module.secret)
 
 #Task 12:Read minutes1.csv and minutes2.csv
+import csv
+
+def read_minutes_file(filename):
+    minutes_dict = {}
+    rows = []
+
+    with open(filename, "r") as minutes_file:
+        reader = csv.reader(minutes_file)
+
+        for row_number, row in enumerate(reader):
+            if row_number == 0:
+                minutes_dict["fields"] = row
+            else:
+                rows.append(tuple(row))
+
+    minutes_dict["rows"] = rows
+    return minutes_dict
+
+
 def read_minutes():
-    minutes1_dict = {}
-    minutes2_dict = {}
-    rows1 = []
-    rows2 = []
-
     try:
-        with open("../csv/minutes1.csv", "r") as minutes1_file:
-            reader1 = csv.reader(minutes1_file)
+        minutes1 = read_minutes_file("../csv/minutes1.csv")
+        minutes2 = read_minutes_file("../csv/minutes2.csv")
 
-            for row_number, row in enumerate(reader1):
-                if row_number == 0:
-                    minutes1_dict["fields"] = row
-                else:
-                    rows1.append(tuple(row))
-
-        minutes1_dict["rows"] = rows1
-
-        with open("../csv/minutes2.csv", "r") as minutes2_file:
-            reader2 = csv.reader(minutes2_file)
-
-            for row_number, row in enumerate(reader2):
-                if row_number == 0:
-                    minutes2_dict["fields"] = row
-                else:
-                    rows2.append(tuple(row))
-
-        minutes2_dict["rows"] = rows2
-
-        return minutes1_dict, minutes2_dict
+        return minutes1, minutes2
 
     except Exception as e:
         print(f"Exception type: {type(e).__name__}")
 
         message = str(e)
-
         if message:
             print(f"Exception message: {message}")
+
+        return {}, {}
 
 
 minutes1, minutes2 = read_minutes()
@@ -171,7 +170,7 @@ print(minutes_list)
 
 #Task 15: Write out sorted list
 def write_sorted_list():
-    minutes_list.sort(key=lambda row: row[1])
+    sorted_minutes=sorted(minutes_list,key=lambda row: row[1])
 
     converted_list = list(
         map(
@@ -179,7 +178,7 @@ def write_sorted_list():
                 row[0],
                 datetime.strftime(row[1], "%B %d, %Y")
             ),
-            minutes_list
+            sorted_minutes
         )
     )
 
