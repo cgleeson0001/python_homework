@@ -1,0 +1,12 @@
+function: say_hello
+positional parameters: none
+keyword parameters: none
+return: None
+function: positional_arguments
+positional parameters: ['Python', 3, True]
+keyword parameters: none
+return: True
+function: keyword_arguments
+positional parameters: none
+keyword parameters: {'name': 'Chantel', 'assignment': 3, 'topic': 'decorators'}
+return: <function logger_decorator at 0x000001BAD90E7AB0>
