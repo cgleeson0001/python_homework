@@ -14,23 +14,15 @@ if not logger.handlers:
 def logger_decorator(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        result=func(*args, **kwargs)
-
-        positional_parameters=list(args) if args else "none"
-        keyword_parameters=kwargs if kwargs else "none"
+        result = func(*args, **kwargs)
 
         logger.log(logging.INFO, f"function: {func.__name__}")
-        logger.log(
-            logging.INFO,
-            f"positional parameters: {positional_parameters}"
-        )
-        logger.log(
-            logging.INFO,
-            f"keyword parameters: {keyword_parameters}"
-        )
+        logger.log(logging.INFO, f"positional parameters: {list(args)}")
+        logger.log(logging.INFO, f"keyword parameters: {kwargs}")
         logger.log(logging.INFO, f"return: {result}")
 
         return result
+
     return wrapper
 
 #function 1
