@@ -1,3 +1,4 @@
+```python
 # Task 6: More on Classes
 
 
@@ -83,21 +84,17 @@ class Board:
         ]
 
         for combination in winning_combinations:
-            first_row, first_column = combination[0]
-            second_row, second_column = combination[1]
-            third_row, third_column = combination[2]
-
-            first_value = self.board_array[first_row][first_column]
-            second_value = self.board_array[second_row][second_column]
-            third_value = self.board_array[third_row][third_column]
+            values = [
+                self.board_array[row][column]
+                for row, column in combination
+            ]
 
             if (
-                first_value != " "
-                and first_value == second_value == third_value
+                values[0] != " "
+                and values[0] == values[1] == values[2]
             ):
-                return True, f"{first_value} has won"
+                return True, f"{values[0]} wins!"
 
-        # Check whether every board position is occupied
         board_is_full = all(
             space != " "
             for row in self.board_array
@@ -113,7 +110,6 @@ class Board:
 # Main program
 if __name__ == "__main__":
     board = Board()
-    game_over = False
 
     print("Welcome to Tic-Tac-Toe!")
     print("Valid moves:")
@@ -121,20 +117,20 @@ if __name__ == "__main__":
     print()
     print(board)
 
-    while not game_over:
+    while True:
         game_over, message = board.whats_next()
 
         if game_over:
             print(message)
             break
 
-        move_string = input(f"{message}. Enter a move: ")
-
         try:
+            move_string = input(f"{message}. Enter your move: ")
             board.move(move_string)
+
             print()
             print(board)
 
         except TictactoeException as error:
-            print(error.message)
+            print(error)
             print("Please try again.")
