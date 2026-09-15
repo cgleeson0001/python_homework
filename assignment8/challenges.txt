@@ -1,0 +1,5 @@
+Task 6: Web Scraping Challenges
+
+One challenge I encountered was identifying the correct HTML elements and selectors for the data I wanted to scrape. I used the browser's developer tools to inspect the page and determine the appropriate elements.
+
+Another challenge was making sure Selenium selected all of the desired results instead of unrelated elements on the page. Using more specific CSS selectors and XPath expressions helped me target the correct data.

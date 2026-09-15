@@ -1,0 +1,13 @@
+Task 5: Ethical Web Scraping
+
+1. Which sections of the website are restricted for crawling?
+
+Wikipedia restricts several areas from crawling. These include /w/, most /api/ paths, /trap/, Special pages, and various administrative or sensitive areas such as deletion discussions, copyright-related pages, spam pages, and arbitration or administrator-related pages.
+
+2. Are there specific rules for certain user agents?
+
+Yes. Wikipedia has specific rules for certain user agents. Some crawlers, such as MJ12bot, UbiCrawler, wget, and several site-copying bots, are completely blocked from crawling the site. Other bots have different restrictions. For example, SemrushBot is given a crawl delay of 5 seconds.
+
+3. Why is robots.txt important?
+
+Websites use robots.txt to communicate which areas automated crawlers should or should not access. Following these rules promotes ethical web scraping by reducing unnecessary server traffic, respecting website restrictions, and preventing automated programs from accessing areas the website owner does not want crawled.
